@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Ilustrasi prompt engineering">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0a1030"/><stop offset="1" stop-color="#070b1a"/></linearGradient>
+    <linearGradient id="ac" x1="0" x2="1"><stop offset="0" stop-color="#8b5cf6"/><stop offset="1" stop-color="#22d3ee"/></linearGradient>
+    <radialGradient id="gl" cx="72%" cy="40%" r="55%"><stop offset="0" stop-color="#8b5cf6" stop-opacity=".38"/><stop offset="1" stop-color="#8b5cf6" stop-opacity="0"/></radialGradient>
+    <filter id="f" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/><rect width="1200" height="630" fill="url(#gl)"/>
+  <g stroke="#94a3ff" stroke-opacity=".07"><path d="M0 0V630"/><path d="M60 0V630"/><path d="M120 0V630"/><path d="M180 0V630"/><path d="M240 0V630"/><path d="M300 0V630"/><path d="M360 0V630"/><path d="M420 0V630"/><path d="M480 0V630"/><path d="M540 0V630"/><path d="M600 0V630"/><path d="M660 0V630"/><path d="M720 0V630"/><path d="M780 0V630"/><path d="M840 0V630"/><path d="M900 0V630"/><path d="M960 0V630"/><path d="M1020 0V630"/><path d="M1080 0V630"/><path d="M1140 0V630"/><path d="M0 0H1200"/><path d="M0 60H1200"/><path d="M0 120H1200"/><path d="M0 180H1200"/><path d="M0 240H1200"/><path d="M0 300H1200"/><path d="M0 360H1200"/><path d="M0 420H1200"/><path d="M0 480H1200"/><path d="M0 540H1200"/><path d="M0 600H1200"/></g>
+  <text x="150" y="400" font-family="monospace" font-size="240" fill="url(#ac)" filter="url(#f)">{ }</text>
+    <rect x="600" y="230" width="430" height="46" rx="12" fill="#0d1430" stroke="url(#ac)" stroke-width="3"/><rect x="622" y="246" width="230" height="12" rx="6" fill="#e6ecff" opacity=".85"/>
+    <rect x="600" y="302" width="430" height="46" rx="12" fill="#0d1430" stroke="#94a3ff" stroke-opacity=".4" stroke-width="2"/><rect x="622" y="318" width="300" height="12" rx="6" fill="#94a3ff" opacity=".6"/>
+    <rect x="600" y="374" width="430" height="46" rx="12" fill="#0d1430" stroke="#94a3ff" stroke-opacity=".4" stroke-width="2"/><rect x="622" y="390" width="160" height="12" rx="6" fill="#94a3ff" opacity=".6"/><rect x="800" y="386" width="6" height="26" fill="#22d3ee" filter="url(#f)"/>
+</svg>

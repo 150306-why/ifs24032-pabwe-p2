@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="id" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Blog AI — NovaMind AI</title>
+    <meta name="description" content="Artikel seputar generative AI, LLM, RAG, etika AI, computer vision, MLOps, dan otomasi dari tim NovaMind AI." />
+    <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml" />
+
+    <!-- Google Fonts (sama dengan halaman lain agar identitas visual konsisten) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+
+    <!-- Bootstrap 5.3.8 (CDN, dipin + SRI) & Bootstrap Icons 1.13.1 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" integrity="sha384-CK2SzKma4jA5H/MXDUU7i1TqZlCFaD4T01vtyDFvPlD97JQyS+IsSh1nI2EFbpyk" crossorigin="anonymous" />
+
+    <!-- Penyesuaian kecil: warna brand, font, gradasi -->
+    <link rel="stylesheet" href="assets/css/bootstrap-custom.css" />
+  </head>
+
+  <body>
+    <!-- ===================== NAVBAR (Bootstrap) ===================== -->
+    <nav class="navbar navbar-expand-lg navbar-site sticky-top" aria-label="Navigasi utama">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-2 fw-bold" href="index.html">
+          <img src="assets/img/logo.svg" alt="" width="36" height="36" />
+          <span class="brand-name">NovaMind<span class="brand-ai">AI</span></span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain" aria-controls="navMain" aria-expanded="false" aria-label="Buka menu navigasi">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMain">
+          <ul class="navbar-nav ms-auto gap-lg-2">
+            <li class="nav-item"><a class="nav-link" href="index.html"><i class="bi bi-house me-1"></i>Beranda</a></li>
+            <li class="nav-item"><a class="nav-link" href="index.html#layanan">Layanan</a></li>
+            <li class="nav-item"><a class="nav-link active" aria-current="page" href="blog.html"><i class="bi bi-journal-text me-1"></i>Blog</a></li>
+            <li class="nav-item"><a class="nav-link" href="cv.html"><i class="bi bi-person-badge me-1"></i>CV</a></li>
+            <li class="nav-item"><a class="nav-link" href="index.html#kontak">Kontak</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <!-- ===================== HEADER HALAMAN ===================== -->
+      <header class="container py-5">
+        <span class="text-uppercase fw-semibold small" style="letter-spacing: 0.14em; color: var(--brand-cyan)">Blog</span>
+        <h1 class="display-5 fw-bold mt-2">Wawasan &amp; <span class="text-gradient">panduan praktis AI</span></h1>
+        <p class="lead text-secondary col-lg-7 px-0">Artikel dari tim kami tentang generative AI, LLM, RAG, etika AI, computer vision, MLOps, dan otomasi industri.</p>
+
+        <!-- Filter kategori (visual sederhana, memakai JS kecil) -->
+        <div class="d-flex flex-wrap gap-2 mt-4" role="group" aria-label="Filter kategori artikel">
+          <button type="button" class="btn btn-outline-secondary btn-sm rounded-pill filter-btn active" data-filter="all" aria-pressed="true">Semua</button>
+            <button type="button" class="btn btn-outline-secondary btn-sm rounded-pill filter-btn" data-filter="Generative AI" aria-pressed="false"><i class="bi bi-stars me-1"></i>Generative AI</button>
+            <button type="button" class="btn btn-outline-secondary btn-sm rounded-pill filter-btn" data-filter="Etika AI" aria-pressed="false"><i class="bi bi-shield-check me-1"></i>Etika AI</button>
+            <button type="button" class="btn btn-outline-secondary btn-sm rounded-pill filter-btn" data-filter="Computer Vision" aria-pressed="false"><i class="bi bi-eye me-1"></i>Computer Vision</button>
+            <button type="button" class="btn btn-outline-secondary btn-sm rounded-pill filter-btn" data-filter="MLOps" aria-pressed="false"><i class="bi bi-diagram-3 me-1"></i>MLOps</button>
+            <button type="button" class="btn btn-outline-secondary btn-sm rounded-pill filter-btn" data-filter="Otomasi" aria-pressed="false"><i class="bi bi-gear me-1"></i>Otomasi</button>
+        </div>
+      </header>
+
+      <!-- ===================== DAFTAR ARTIKEL (grid card) ===================== -->
+      <section class="container pb-5" aria-label="Daftar artikel">
+        <p class="text-secondary small" id="result-count" role="status" aria-live="polite">Menampilkan 6 artikel</p>
+        <div class="row g-4" id="blog-grid">
+          <div class="col-md-6 col-lg-4" data-category="Generative AI">
+            <article class="card card-blog h-100 overflow-hidden">
+              <a href="blog-detail.html?id=rag-untuk-bisnis" aria-label="Buka artikel: RAG: Membuat Chatbot yang Menjawab dari Dokumen Perusahaan Anda">
+                <img src="assets/img/cover-rag.svg" class="card-img-top cover-img" alt="Cover artikel: RAG: Membuat Chatbot yang Menjawab dari Dokumen Perusahaan Anda" width="1200" height="630" loading="lazy" />
+              </a>
+              <div class="card-body d-flex flex-column">
+                <span class="badge badge-ai rounded-pill align-self-start mb-3"><i class="bi bi-stars me-1"></i>Generative AI</span>
+                <h2 class="h5 card-title"><a href="blog-detail.html?id=rag-untuk-bisnis">RAG: Membuat Chatbot yang Menjawab dari Dokumen Perusahaan Anda</a></h2>
+                <p class="card-text text-secondary">Model bahasa besar sering menjawab dengan yakin tetapi keliru. Retrieval-Augmented Generation (RAG) menambatkan jawaban pada dokumen milik Anda sendiri.</p>
+                <ul class="list-unstyled d-flex flex-wrap gap-3 small text-secondary mt-auto mb-3">
+                  <li><i class="bi bi-person me-1"></i>Rina Siregar</li>
+                  <li><i class="bi bi-calendar me-1"></i><time datetime="2026-09-15">15 Sep 2026</time></li>
+                  <li><i class="bi bi-clock me-1"></i>7 menit baca</li>
+                </ul>
+                <a class="btn btn-brand btn-sm align-self-start" href="blog-detail.html?id=rag-untuk-bisnis">Baca selengkapnya <i class="bi bi-arrow-right ms-1"></i></a>
+              </div>
+            </article>
+          </div>
+          <div class="col-md-6 col-lg-4" data-category="Generative AI">
+            <article class="card card-blog h-100 overflow-hidden">
+              <a href="blog-detail.html?id=prompt-engineering-praktis" aria-label="Buka artikel: Prompt Engineering: 5 Teknik Praktis agar Jawaban LLM Lebih Akurat">
+                <img src="assets/img/cover-prompt.svg" class="card-img-top cover-img" alt="Cover artikel: Prompt Engineering: 5 Teknik Praktis agar Jawaban LLM Lebih Akurat" width="1200" height="630" loading="lazy" />
+              </a>
+              <div class="card-body d-flex flex-column">
+                <span class="badge badge-ai rounded-pill align-self-start mb-3"><i class="bi bi-stars me-1"></i>Generative AI</span>
+                <h2 class="h5 card-title"><a href="blog-detail.html?id=prompt-engineering-praktis">Prompt Engineering: 5 Teknik Praktis agar Jawaban LLM Lebih Akurat</a></h2>
+                <p class="card-text text-secondary">Kualitas jawaban model sangat ditentukan oleh kualitas instruksi. Berikut teknik prompt yang bisa langsung dipraktikkan dalam pekerjaan sehari-hari.</p>
+                <ul class="list-unstyled d-flex flex-wrap gap-3 small text-secondary mt-auto mb-3">
+                  <li><i class="bi bi-person me-1"></i>Andi Pratama</li>
+                  <li><i class="bi bi-calendar me-1"></i><time datetime="2026-09-08">8 Sep 2026</time></li>
+                  <li><i class="bi bi-clock me-1"></i>6 menit baca</li>
+                </ul>
+                <a class="btn btn-brand btn-sm align-self-start" href="blog-detail.html?id=prompt-engineering-praktis">Baca selengkapnya <i class="bi bi-arrow-right ms-1"></i></a>
+              </div>
+            </article>
+          </div>
+          <div class="col-md-6 col-lg-4" data-category="Etika AI">
+            <article class="card card-blog h-100 overflow-hidden">
+              <a href="blog-detail.html?id=etika-ai-bisnis" aria-label="Buka artikel: Etika AI: Bias, Privasi, dan Tanggung Jawab dalam Produk Berbasis Model">
+                <img src="assets/img/cover-etika.svg" class="card-img-top cover-img" alt="Cover artikel: Etika AI: Bias, Privasi, dan Tanggung Jawab dalam Produk Berbasis Model" width="1200" height="630" loading="lazy" />
+              </a>
+              <div class="card-body d-flex flex-column">
+                <span class="badge badge-ai rounded-pill align-self-start mb-3"><i class="bi bi-shield-check me-1"></i>Etika AI</span>
+                <h2 class="h5 card-title"><a href="blog-detail.html?id=etika-ai-bisnis">Etika AI: Bias, Privasi, dan Tanggung Jawab dalam Produk Berbasis Model</a></h2>
+                <p class="card-text text-secondary">AI belajar dari data, dan data mencerminkan ketimpangan dunia nyata. Kenali risiko bias dan privasi sebelum produk Anda dirilis.</p>
+                <ul class="list-unstyled d-flex flex-wrap gap-3 small text-secondary mt-auto mb-3">
+                  <li><i class="bi bi-person me-1"></i>Maya Sari</li>
+                  <li><i class="bi bi-calendar me-1"></i><time datetime="2026-09-01">1 Sep 2026</time></li>
+                  <li><i class="bi bi-clock me-1"></i>8 menit baca</li>
+                </ul>
+                <a class="btn btn-brand btn-sm align-self-start" href="blog-detail.html?id=etika-ai-bisnis">Baca selengkapnya <i class="bi bi-arrow-right ms-1"></i></a>
+              </div>
+            </article>
+          </div>
+          <div class="col-md-6 col-lg-4" data-category="Computer Vision">
+            <article class="card card-blog h-100 overflow-hidden">
+              <a href="blog-detail.html?id=computer-vision-pabrik" aria-label="Buka artikel: Computer Vision di Pabrik: Deteksi Cacat Produk secara Real-Time">
+                <img src="assets/img/cover-vision.svg" class="card-img-top cover-img" alt="Cover artikel: Computer Vision di Pabrik: Deteksi Cacat Produk secara Real-Time" width="1200" height="630" loading="lazy" />
+              </a>
+              <div class="card-body d-flex flex-column">
+                <span class="badge badge-ai rounded-pill align-self-start mb-3"><i class="bi bi-eye me-1"></i>Computer Vision</span>
+                <h2 class="h5 card-title"><a href="blog-detail.html?id=computer-vision-pabrik">Computer Vision di Pabrik: Deteksi Cacat Produk secara Real-Time</a></h2>
+                <p class="card-text text-secondary">Kamera dan model deteksi objek dapat menginspeksi ribuan produk per jam dengan konsistensi yang sulit dicapai inspeksi manual.</p>
+                <ul class="list-unstyled d-flex flex-wrap gap-3 small text-secondary mt-auto mb-3">
+                  <li><i class="bi bi-person me-1"></i>Budi Hutapea</li>
+                  <li><i class="bi bi-calendar me-1"></i><time datetime="2026-08-24">24 Agu 2026</time></li>
+                  <li><i class="bi bi-clock me-1"></i>6 menit baca</li>
+                </ul>
+                <a class="btn btn-brand btn-sm align-self-start" href="blog-detail.html?id=computer-vision-pabrik">Baca selengkapnya <i class="bi bi-arrow-right ms-1"></i></a>
+              </div>
+            </article>
+          </div>
+          <div class="col-md-6 col-lg-4" data-category="MLOps">
+            <article class="card card-blog h-100 overflow-hidden">
+              <a href="blog-detail.html?id=mlops-untuk-pemula" aria-label="Buka artikel: MLOps untuk Pemula: Dari Notebook ke Model yang Berjalan di Produksi">
+                <img src="assets/img/cover-mlops.svg" class="card-img-top cover-img" alt="Cover artikel: MLOps untuk Pemula: Dari Notebook ke Model yang Berjalan di Produksi" width="1200" height="630" loading="lazy" />
+              </a>
+              <div class="card-body d-flex flex-column">
+                <span class="badge badge-ai rounded-pill align-self-start mb-3"><i class="bi bi-diagram-3 me-1"></i>MLOps</span>
+                <h2 class="h5 card-title"><a href="blog-detail.html?id=mlops-untuk-pemula">MLOps untuk Pemula: Dari Notebook ke Model yang Berjalan di Produksi</a></h2>
+                <p class="card-text text-secondary">Banyak proyek AI berhenti di notebook. MLOps menjembatani kesenjangan antara eksperimen dan layanan yang benar-benar dipakai pengguna.</p>
+                <ul class="list-unstyled d-flex flex-wrap gap-3 small text-secondary mt-auto mb-3">
+                  <li><i class="bi bi-person me-1"></i>Dewi Lestari</li>
+                  <li><i class="bi bi-calendar me-1"></i><time datetime="2026-08-15">15 Agu 2026</time></li>
+                  <li><i class="bi bi-clock me-1"></i>9 menit baca</li>
+                </ul>
+                <a class="btn btn-brand btn-sm align-self-start" href="blog-detail.html?id=mlops-untuk-pemula">Baca selengkapnya <i class="bi bi-arrow-right ms-1"></i></a>
+              </div>
+            </article>
+          </div>
+          <div class="col-md-6 col-lg-4" data-category="Otomasi">
+            <article class="card card-blog h-100 overflow-hidden">
+              <a href="blog-detail.html?id=agen-ai-otomasi-proses" aria-label="Buka artikel: Agen AI dan Otomasi Proses: Kapan Layak Diterapkan?">
+                <img src="assets/img/cover-otomasi.svg" class="card-img-top cover-img" alt="Cover artikel: Agen AI dan Otomasi Proses: Kapan Layak Diterapkan?" width="1200" height="630" loading="lazy" />
+              </a>
+              <div class="card-body d-flex flex-column">
+                <span class="badge badge-ai rounded-pill align-self-start mb-3"><i class="bi bi-gear me-1"></i>Otomasi</span>
+                <h2 class="h5 card-title"><a href="blog-detail.html?id=agen-ai-otomasi-proses">Agen AI dan Otomasi Proses: Kapan Layak Diterapkan?</a></h2>
+                <p class="card-text text-secondary">Agen AI dapat merencanakan langkah dan memakai alat untuk menyelesaikan tugas. Kenali proses yang cocok diotomasi dan yang belum.</p>
+                <ul class="list-unstyled d-flex flex-wrap gap-3 small text-secondary mt-auto mb-3">
+                  <li><i class="bi bi-person me-1"></i>Farhan Nasution</li>
+                  <li><i class="bi bi-calendar me-1"></i><time datetime="2026-08-05">5 Agu 2026</time></li>
+                  <li><i class="bi bi-clock me-1"></i>5 menit baca</li>
+                </ul>
+                <a class="btn btn-brand btn-sm align-self-start" href="blog-detail.html?id=agen-ai-otomasi-proses">Baca selengkapnya <i class="bi bi-arrow-right ms-1"></i></a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer class="border-top mt-5 py-4" style="background: rgba(13, 20, 48, 0.6)">
+      <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+        <a class="d-inline-flex align-items-center gap-2 text-decoration-none fw-bold fs-5" href="index.html">
+          <img src="assets/img/logo.svg" alt="" width="32" height="32" />
+          <span class="brand-name">NovaMind<span class="brand-ai">AI</span></span>
+        </a>
+        <ul class="nav justify-content-center">
+          <li class="nav-item"><a class="nav-link text-secondary" href="index.html">Beranda</a></li>
+          <li class="nav-item"><a class="nav-link text-secondary" href="blog.html">Blog</a></li>
+          <li class="nav-item"><a class="nav-link text-secondary" href="cv.html">CV</a></li>
+          <li class="nav-item"><a class="nav-link text-secondary" href="index.html#kontak">Kontak</a></li>
+        </ul>
+      </div>
+      <p class="container text-secondary small text-center mt-3 mb-0">© 2026 NovaMind AI. Proyek simulasi praktikum PABWE — IT Del.</p>
+    </footer>
+
+    <!-- Bootstrap JS bundle (untuk navbar collapse) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+    <script>
+      // --- Filter kategori: tampil/sembunyikan card berdasarkan data-category ---
+      const buttons = document.querySelectorAll(".filter-btn");
+      const items = document.querySelectorAll("#blog-grid > [data-category]");
+      const counter = document.getElementById("result-count");
+
+      buttons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const filter = btn.dataset.filter;
+          let visible = 0;
+
+          buttons.forEach((b) => {
+            const active = b === btn;
+            b.classList.toggle("active", active);
+            b.setAttribute("aria-pressed", String(active));
+          });
+
+          items.forEach((item) => {
+            const show = filter === "all" || item.dataset.category === filter;
+            item.classList.toggle("d-none", !show);
+            if (show) visible++;
+          });
+
+          counter.textContent = `Menampilkan ${visible} artikel`;
+        });
+      });
+    </script>
+  </body>
+</html>

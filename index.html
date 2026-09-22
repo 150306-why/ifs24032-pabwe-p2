@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NovaMind AI — Jasa Artificial Intelligence untuk Bisnis</title>
+    <meta
+      name="description"
+      content="NovaMind AI menyediakan jasa chatbot, otomasi proses, computer vision, analitik prediktif, dan fine-tuning model AI untuk bisnis di Indonesia."
+    />
+    <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml" />
+
+    <!-- Google Fonts (diperbolehkan): Space Grotesk untuk heading, Inter untuk teks -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- External CSS (wajib) — tanpa Bootstrap / Tailwind pada halaman ini -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Lewati ke konten utama</a>
+
+    <!-- ===================== HEADER / NAVBAR ===================== -->
+    <header class="site-header">
+      <div class="container">
+        <a class="brand" href="index.html" aria-label="NovaMind AI — Beranda">
+          <img src="assets/img/logo.svg" alt="" width="36" height="36" />
+          <span class="brand-name">NovaMind<span>AI</span></span>
+        </a>
+
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-controls="nav-menu"
+          aria-expanded="false"
+          aria-label="Buka menu navigasi"
+        >
+          ☰
+        </button>
+
+        <nav aria-label="Navigasi utama">
+          <ul class="nav-menu" id="nav-menu">
+            <!-- Link ke section di halaman yang sama -->
+            <li><a href="#layanan">Layanan</a></li>
+            <li><a href="#tentang">Tentang</a></li>
+            <li><a href="#kontak">Kontak</a></li>
+            <!-- Link ke halaman lain di proyek -->
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="cv.html">CV</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- ===================== HERO ===================== -->
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="container hero-grid">
+          <div class="hero-content">
+            <span class="badge">Jasa Artificial Intelligence untuk Bisnis Indonesia</span>
+            <h1 id="hero-title">
+              Ubah data &amp; proses bisnis Anda menjadi <span class="text-gradient">keunggulan kompetitif</span> dengan AI
+            </h1>
+            <p class="hero-desc">
+              Kami merancang, membangun, dan menerapkan solusi AI — dari chatbot cerdas hingga analitik prediktif —
+              yang terukur dampaknya dan aman untuk data perusahaan Anda.
+            </p>
+
+            <div class="hero-actions">
+              <!-- Tombol CTA -->
+              <a class="btn btn-primary" href="#kontak">Konsultasi Gratis</a>
+              <a class="btn btn-ghost" href="#layanan">Lihat Layanan</a>
+            </div>
+
+            <ul class="hero-stats">
+              <li><strong>40+</strong><span>Klien terlayani</span></li>
+              <li><strong>120+</strong><span>Proyek AI selesai</span></li>
+              <li><strong>98%</strong><span>Kepuasan klien</span></li>
+            </ul>
+          </div>
+
+          <div class="hero-visual">
+            <img
+              src="assets/img/hero.svg"
+              alt="Ilustrasi jaringan saraf tiruan berwarna cyan dan violet"
+              width="800"
+              height="640"
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== LAYANAN ===================== -->
+      <section id="layanan" aria-labelledby="layanan-title">
+        <div class="container">
+          <div class="section-head">
+            <span class="eyebrow">Layanan</span>
+            <h2 id="layanan-title">Solusi AI end-to-end untuk kebutuhan bisnis Anda</h2>
+            <p>Pilih layanan yang paling sesuai, atau kombinasikan beberapa layanan dalam satu roadmap transformasi.</p>
+          </div>
+
+          <div class="service-grid">
+            <!-- Setiap layanan = 1 <article> card -->
+            <article class="card">
+              <div class="card-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>
+              </div>
+              <h3>Chatbot &amp; Virtual Assistant</h3>
+              <p>
+                Asisten percakapan 24/7 untuk layanan pelanggan dan tim internal, terhubung ke basis pengetahuan
+                perusahaan Anda.
+              </p>
+            </article>
+
+            <article class="card">
+              <div class="card-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></svg>
+              </div>
+              <h3>Otomasi Proses Bisnis</h3>
+              <p>
+                Otomatisasi tugas berulang seperti pemrosesan dokumen, verifikasi data, dan pelaporan agar tim fokus
+                pada pekerjaan bernilai tinggi.
+              </p>
+            </article>
+
+            <article class="card">
+              <div class="card-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" />
+                </svg>
+              </div>
+              <h3>Computer Vision</h3>
+              <p>
+                Deteksi objek, inspeksi kualitas produk, dan pembacaan dokumen (OCR) secara real-time dari gambar
+                maupun video.
+              </p>
+            </article>
+
+            <article class="card">
+              <div class="card-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" /><polyline points="16 7 22 7 22 13" />
+                </svg>
+              </div>
+              <h3>Analitik Prediktif</h3>
+              <p>
+                Prakiraan permintaan, deteksi anomali, dan skoring risiko berbasis machine learning untuk keputusan
+                yang lebih tepat.
+              </p>
+            </article>
+
+            <article class="card">
+              <div class="card-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <rect x="4" y="4" width="16" height="16" rx="2" /><rect x="9" y="9" width="6" height="6" />
+                  <path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3" />
+                </svg>
+              </div>
+              <h3>Fine-tuning &amp; RAG</h3>
+              <p>
+                Penyesuaian model bahasa dan pipeline retrieval-augmented generation agar jawaban akurat, relevan,
+                dan bersumber dari dokumen Anda.
+              </p>
+            </article>
+
+            <article class="card">
+              <div class="card-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="10" />
+                  <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
+                </svg>
+              </div>
+              <h3>Konsultasi Strategi AI</h3>
+              <p>
+                Audit kesiapan data, penentuan use case prioritas, hingga roadmap implementasi dan tata kelola AI yang
+                bertanggung jawab.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== TENTANG / KEUNGGULAN ===================== -->
+      <section id="tentang" class="about" aria-labelledby="tentang-title">
+        <div class="container about-grid">
+          <div>
+            <span class="eyebrow">Tentang Kami</span>
+            <h2 id="tentang-title">Tim AI yang memahami bisnis, bukan hanya model</h2>
+            <p>
+              NovaMind AI adalah studio jasa Artificial Intelligence yang membantu perusahaan mengubah eksperimen
+              menjadi produk yang berjalan di produksi. Kami memadukan data scientist, engineer, dan konsultan bisnis
+              dalam satu tim.
+            </p>
+
+            <ul class="about-list">
+              <li><span><strong>Berorientasi hasil.</strong> Setiap proyek dimulai dari metrik bisnis yang jelas.</span></li>
+              <li><span><strong>Data aman.</strong> Praktik privasi, enkripsi, dan kontrol akses sejak hari pertama.</span></li>
+              <li><span><strong>Cepat &amp; iteratif.</strong> Prototipe dalam hitungan minggu, bukan bulan.</span></li>
+              <li><span><strong>Pendampingan berkelanjutan.</strong> Monitoring, evaluasi, dan pelatihan tim Anda.</span></li>
+            </ul>
+          </div>
+
+          <div class="stat-grid" aria-label="Statistik perusahaan">
+            <div class="stat"><strong class="text-gradient">5+</strong><span>Tahun pengalaman</span></div>
+            <div class="stat"><strong class="text-gradient">25</strong><span>Engineer &amp; ilmuwan data</span></div>
+            <div class="stat"><strong class="text-gradient">12</strong><span>Industri terlayani</span></div>
+            <div class="stat"><strong class="text-gradient">24/7</strong><span>Dukungan operasional</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== KONTAK / CTA ===================== -->
+      <section id="kontak" aria-labelledby="kontak-title">
+        <div class="container contact-grid">
+          <div>
+            <span class="eyebrow">Kontak</span>
+            <h2 id="kontak-title">Siap memulai proyek AI Anda?</h2>
+            <p>Ceritakan tantangan bisnis Anda. Tim kami akan membalas dalam 1×24 jam kerja dengan usulan langkah awal.</p>
+
+            <ul class="contact-info">
+              <li><small>Email</small>hello@novamind.example</li>
+              <li><small>Telepon / WhatsApp</small>+62 812-0000-0000</li>
+              <li><small>Lokasi</small>Sumatera Utara, Indonesia</li>
+            </ul>
+          </div>
+
+          <!-- Form sederhana: nama, email, pesan -->
+          <form class="contact-form" id="contact-form" novalidate>
+            <div class="form-row">
+              <label for="nama">Nama</label>
+              <input type="text" id="nama" name="nama" placeholder="Nama lengkap" autocomplete="name" required minlength="2" maxlength="80" />
+            </div>
+            <div class="form-row">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="nama@perusahaan.com" autocomplete="email" required maxlength="120" />
+            </div>
+            <div class="form-row">
+              <label for="pesan">Pesan</label>
+              <textarea id="pesan" name="pesan" placeholder="Ceritakan kebutuhan atau tantangan bisnis Anda…" required minlength="10" maxlength="1000"></textarea>
+            </div>
+            <button class="btn btn-primary" type="submit">Kirim Pesan</button>
+            <p id="form-status" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <a class="brand" href="index.html">
+          <img src="assets/img/logo.svg" alt="" width="36" height="36" />
+          <span class="brand-name">NovaMind<span>AI</span></span>
+        </a>
+
+        <nav aria-label="Tautan cepat">
+          <ul class="footer-links">
+            <li><a href="#layanan">Layanan</a></li>
+            <li><a href="#tentang">Tentang</a></li>
+            <li><a href="#kontak">Kontak</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="cv.html">CV</a></li>
+          </ul>
+        </nav>
+
+        <p class="copyright">© 2026 NovaMind AI. Proyek simulasi praktikum PABWE — IT Del.</p>
+      </div>
+    </footer>
+
+    <script>
+      // --- Menu mobile: buka/tutup dropdown navigasi ---
+      const toggle = document.querySelector(".nav-toggle");
+      const menu = document.getElementById("nav-menu");
+
+      toggle.addEventListener("click", () => {
+        const open = menu.classList.toggle("is-open");
+        toggle.setAttribute("aria-expanded", String(open));
+      });
+      // Tutup menu setelah salah satu link diklik
+      menu.addEventListener("click", (e) => {
+        if (e.target.closest("a")) {
+          menu.classList.remove("is-open");
+          toggle.setAttribute("aria-expanded", "false");
+        }
+      });
+
+      // --- Form kontak: validasi bawaan browser + umpan balik ---
+      // Catatan: belum terhubung ke backend; data tidak dikirim ke server manapun.
+      const form = document.getElementById("contact-form");
+      const status = document.getElementById("form-status");
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
+        const nama = form.elements.nama.value.trim();
+        status.textContent = `Terima kasih, ${nama}! Pesan Anda sudah kami terima (simulasi).`;
+        form.reset();
+      });
+    </script>
+  </body>
+</html>

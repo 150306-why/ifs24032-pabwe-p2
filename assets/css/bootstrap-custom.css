@@ -1,0 +1,159 @@
+/* =========================================================
+   Penyesuaian kecil untuk halaman Bootstrap 5 (blog & detail)
+   Tujuan : menyamakan identitas visual dengan landing page
+            (warna brand, font, gradasi) tanpa mengganti
+            Bootstrap sebagai sistem styling utama.
+   Dimuat SETELAH bootstrap.min.css.
+   ========================================================= */
+
+/* Override CSS variables bawaan Bootstrap 5.3 (mode gelap) */
+:root,
+[data-bs-theme="dark"] {
+  --bs-body-bg: #070b1a;
+  --bs-body-color: #e6ecff;
+  --bs-secondary-color: #9aa8cf;
+  --bs-secondary-rgb: 154, 168, 207; /* .text-secondary lebih terbaca di latar gelap */
+  --bs-border-color: rgba(148, 163, 255, 0.16);
+  --bs-body-font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --bs-link-color-rgb: 34, 211, 238;
+  --bs-link-hover-color-rgb: 255, 255, 255;
+  --brand-cyan: #22d3ee;
+  --brand-violet: #8b5cf6;
+  --brand-surface: #0d1430;
+  --brand-gradient: linear-gradient(135deg, #22d3ee, #8b5cf6);
+}
+
+body {
+  background-image:
+    radial-gradient(60rem 30rem at 85% -10%, rgba(139, 92, 246, 0.18), transparent 60%),
+    radial-gradient(50rem 30rem at -10% 20%, rgba(34, 211, 238, 0.12), transparent 60%);
+  background-repeat: no-repeat;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+.navbar-brand {
+  font-family: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+/* Navbar transparan + blur, sama seperti landing page */
+.navbar-site {
+  background: rgba(7, 11, 26, 0.8);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--bs-border-color);
+}
+
+.brand-name {
+  color: var(--bs-body-color);
+}
+
+.brand-ai {
+  color: var(--brand-cyan);
+}
+
+.navbar-site .nav-link.active {
+  color: #fff;
+  box-shadow: inset 0 -2px 0 var(--brand-cyan);
+}
+
+/* Tombol brand (gradasi cyan → violet) */
+.btn-brand {
+  --bs-btn-color: #04121a;
+  --bs-btn-hover-color: #04121a;
+  --bs-btn-active-color: #04121a;
+  color: var(--bs-btn-color);
+  border: 0;
+  font-weight: 600;
+  background: var(--brand-gradient);
+  box-shadow: 0 10px 40px -12px rgba(34, 211, 238, 0.5);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-brand:hover {
+  color: var(--bs-btn-hover-color);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 44px -8px rgba(139, 92, 246, 0.55);
+}
+
+/* Kartu artikel */
+.card {
+  --bs-card-bg: var(--brand-surface);
+  --bs-card-border-color: var(--bs-border-color);
+  --bs-card-cap-bg: transparent;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card-blog:hover {
+  transform: translateY(-6px);
+  border-color: rgba(34, 211, 238, 0.55);
+  box-shadow: 0 10px 40px -10px rgba(34, 211, 238, 0.35);
+}
+
+.card-blog .card-title a {
+  color: var(--bs-body-color);
+  text-decoration: none;
+}
+
+.card-blog .card-title a:hover {
+  color: var(--brand-cyan);
+}
+
+/* Badge kategori */
+.badge-ai {
+  color: var(--brand-cyan);
+  background: rgba(34, 211, 238, 0.1);
+  border: 1px solid rgba(34, 211, 238, 0.3);
+  font-weight: 500;
+}
+
+/* Teks gradasi untuk kata kunci */
+.text-gradient {
+  background: var(--brand-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Gambar cover: rasio konsisten */
+.cover-img {
+  aspect-ratio: 1200 / 630;
+  object-fit: cover;
+  width: 100%;
+  height: auto; /* atribut height di HTML tidak boleh memaksa tinggi tetap */
+}
+
+/* Isi artikel: nyaman dibaca */
+.article-body {
+  font-size: 1.08rem;
+  line-height: 1.85;
+}
+
+.article-body p {
+  color: #c4cef0;
+}
+
+.blockquote {
+  padding-left: 1.2rem;
+  border-left: 4px solid var(--brand-violet);
+}
+
+.filter-btn.active {
+  color: #04121a;
+  background: var(--brand-gradient);
+  border-color: transparent;
+}
+
+:focus-visible {
+  outline: 2px solid var(--brand-cyan);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}

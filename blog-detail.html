@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="id" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>RAG: Membuat Chatbot yang Menjawab dari Dokumen Perusahaan Anda — Blog NovaMind AI</title>
+    <meta name="description" content="Model bahasa besar sering menjawab dengan yakin tetapi keliru. Retrieval-Augmented Generation (RAG) menambatkan jawaban pada dokumen milik Anda sendiri." />
+    <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml" />
+
+    <!-- Google Fonts (sama dengan halaman lain agar identitas visual konsisten) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+
+    <!-- Bootstrap 5.3.8 (CDN, dipin + SRI) & Bootstrap Icons 1.13.1 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" integrity="sha384-CK2SzKma4jA5H/MXDUU7i1TqZlCFaD4T01vtyDFvPlD97JQyS+IsSh1nI2EFbpyk" crossorigin="anonymous" />
+
+    <!-- Penyesuaian kecil: warna brand, font, gradasi -->
+    <link rel="stylesheet" href="assets/css/bootstrap-custom.css" />
+  </head>
+
+  <body>
+    <!-- ===================== NAVBAR (Bootstrap) ===================== -->
+    <nav class="navbar navbar-expand-lg navbar-site sticky-top" aria-label="Navigasi utama">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-2 fw-bold" href="index.html">
+          <img src="assets/img/logo.svg" alt="" width="36" height="36" />
+          <span class="brand-name">NovaMind<span class="brand-ai">AI</span></span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain" aria-controls="navMain" aria-expanded="false" aria-label="Buka menu navigasi">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMain">
+          <ul class="navbar-nav ms-auto gap-lg-2">
+            <li class="nav-item"><a class="nav-link" href="index.html"><i class="bi bi-house me-1"></i>Beranda</a></li>
+            <li class="nav-item"><a class="nav-link" href="index.html#layanan">Layanan</a></li>
+            <li class="nav-item"><a class="nav-link active" aria-current="page" href="blog.html"><i class="bi bi-journal-text me-1"></i>Blog</a></li>
+            <li class="nav-item"><a class="nav-link" href="cv.html"><i class="bi bi-person-badge me-1"></i>CV</a></li>
+            <li class="nav-item"><a class="nav-link" href="index.html#kontak">Kontak</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container py-4 py-lg-5">
+      <!-- Breadcrumb -->
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb small">
+          <li class="breadcrumb-item"><a href="index.html">Beranda</a></li>
+          <li class="breadcrumb-item"><a href="blog.html">Blog</a></li>
+          <li class="breadcrumb-item active" aria-current="page" id="crumb-title">RAG: Membuat Chatbot yang Menjawab dari Dokumen Perusahaan Anda</li>
+        </ol>
+      </nav>
+
+      <div class="row gy-5 gx-lg-5">
+        <!-- ============ KOLOM UTAMA: artikel + komentar ============ -->
+        <div class="col-lg-8">
+          <!-- Konten default (tanpa JS). Bila URL memuat ?id=..., JS menggantinya dengan artikel yang dipilih. -->
+          <article id="article">
+          <img id="art-cover" class="cover-img rounded-4 border mb-4" src="assets/img/cover-rag.svg" alt="Cover artikel: RAG: Membuat Chatbot yang Menjawab dari Dokumen Perusahaan Anda" width="1200" height="630" />
+          <span id="art-cat" class="badge badge-ai rounded-pill mb-3"><i class="bi bi-stars me-1"></i>Generative AI</span>
+          <h1 id="art-title" class="display-6 fw-bold mb-3">RAG: Membuat Chatbot yang Menjawab dari Dokumen Perusahaan Anda</h1>
+          <ul class="list-inline text-secondary small mb-4">
+            <li class="list-inline-item me-3"><i class="bi bi-person me-1"></i>Rina Siregar</li>
+            <li class="list-inline-item me-3"><i class="bi bi-calendar me-1"></i><time datetime="2026-09-15">15 Sep 2026</time></li>
+            <li class="list-inline-item me-3"><i class="bi bi-clock me-1"></i>7 menit baca</li>
+            <li class="list-inline-item"><i class="bi bi-stars me-1"></i>Generative AI</li>
+          </ul>
+
+          <div class="article-body">
+            <p>Model bahasa besar (LLM) dilatih pada data umum sehingga tidak mengenal kebijakan internal, harga terbaru, atau prosedur operasional perusahaan Anda. Ketika ditanya hal-hal tersebut, model tetap berusaha menjawab dan sering kali menghasilkan jawaban yang terdengar meyakinkan tetapi salah — fenomena yang dikenal sebagai halusinasi.</p>
+            <p>Retrieval-Augmented Generation (RAG) menyelesaikan masalah ini dengan menambahkan langkah pencarian sebelum model menjawab. Dokumen dipecah menjadi potongan kecil (chunk), diubah menjadi vektor embedding, lalu disimpan dalam basis data vektor. Saat pengguna bertanya, sistem mengambil potongan paling relevan dan menyertakannya sebagai konteks dalam prompt.</p>
+            <blockquote class="blockquote my-4">
+              <p class="mb-2">“Model tidak perlu tahu segalanya; ia hanya perlu tahu di mana mencari.”</p>
+              <footer class="blockquote-footer">Prinsip dasar desain sistem RAG</footer>
+            </blockquote>
+            <p>Hasilnya, jawaban lebih akurat, dapat dilacak ke sumbernya, dan mudah diperbarui: cukup menambah atau mengganti dokumen tanpa melatih ulang model. Kualitas RAG sangat bergantung pada cara memecah dokumen, pemilihan model embedding, serta evaluasi berkala terhadap pertanyaan nyata dari pengguna.</p>
+
+            <h2 class="h4 mt-5">Poin penting</h2>
+            <ul class="list-group list-group-flush my-3">
+            <li class="list-group-item bg-transparent border-secondary-subtle px-0"><i class="bi bi-check-circle-fill text-info me-2"></i>Pecah dokumen berdasarkan struktur (judul, bagian), bukan sekadar jumlah karakter.</li>
+            <li class="list-group-item bg-transparent border-secondary-subtle px-0"><i class="bi bi-check-circle-fill text-info me-2"></i>Selalu tampilkan sumber kutipan agar pengguna dapat memverifikasi jawaban.</li>
+            <li class="list-group-item bg-transparent border-secondary-subtle px-0"><i class="bi bi-check-circle-fill text-info me-2"></i>Siapkan 50–100 pertanyaan uji untuk mengukur akurasi sebelum rilis.</li>
+            <li class="list-group-item bg-transparent border-secondary-subtle px-0"><i class="bi bi-check-circle-fill text-info me-2"></i>Tambahkan fallback: jika konteks tidak ditemukan, chatbot harus mengaku tidak tahu.</li>
+            </ul>
+
+            <div class="alert alert-info d-flex gap-2 align-items-start mt-4" role="alert">
+              <i class="bi bi-info-circle-fill mt-1"></i>
+              <div>Data sensitif: pastikan dokumen yang diindeks sudah melalui kontrol akses agar pengguna hanya melihat konten yang memang boleh mereka akses.</div>
+            </div>
+          </div>
+          </article>
+
+          <!-- ============ KOMENTAR ============ -->
+          <section class="mt-5 pt-4 border-top" aria-labelledby="komentar-title">
+            <h2 class="h4 mb-4" id="komentar-title"><i class="bi bi-chat-dots me-2"></i>Komentar (<span id="comment-count">2</span>)</h2>
+
+            <ul class="list-unstyled d-grid gap-3 mb-4" id="comment-list">
+              <li class="d-flex gap-3">
+                <i class="bi bi-person-circle fs-2 text-secondary"></i>
+                <div><strong>Nadia P.</strong> <small class="text-secondary ms-2">2 hari lalu</small>
+                  <p class="mb-0 text-secondary">Penjelasannya mudah dipahami, terima kasih! Apakah ada rekomendasi tools untuk mulai mencoba?</p></div>
+              </li>
+              <li class="d-flex gap-3">
+                <i class="bi bi-person-circle fs-2 text-secondary"></i>
+                <div><strong>Rizky A.</strong> <small class="text-secondary ms-2">1 hari lalu</small>
+                  <p class="mb-0 text-secondary">Bagian tips-nya langsung bisa saya terapkan di tim. Ditunggu artikel berikutnya.</p></div>
+              </li>
+            </ul>
+
+            <!-- Form komentar sederhana (Bootstrap form + validasi) -->
+            <form id="comment-form" class="card p-3 p-md-4 needs-validation" novalidate>
+              <div class="d-flex gap-3">
+                <i class="bi bi-person-circle fs-1 text-secondary d-none d-sm-block"></i>
+                <div class="flex-grow-1">
+                  <div class="mb-3">
+                    <label for="c-name" class="form-label">Nama</label>
+                    <input type="text" class="form-control" id="c-name" maxlength="60" required />
+                    <div class="invalid-feedback">Nama wajib diisi.</div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="c-text" class="form-label">Komentar</label>
+                    <textarea class="form-control" id="c-text" rows="3" maxlength="500" placeholder="Tulis komentar Anda…" required></textarea>
+                    <div class="invalid-feedback">Komentar wajib diisi.</div>
+                  </div>
+                  <button type="submit" class="btn btn-brand"><i class="bi bi-send me-1"></i>Kirim komentar</button>
+                </div>
+              </div>
+            </form>
+          </section>
+        </div>
+
+        <!-- ============ SIDEBAR ============ -->
+        <aside class="col-lg-4" aria-label="Artikel terkait">
+          <div class="position-sticky" style="top: 6rem">
+            <h2 class="h5 mb-3"><i class="bi bi-collection me-2"></i>Artikel terkait</h2>
+            <div id="related">
+            <a class="card card-blog text-decoration-none mb-3 overflow-hidden" href="blog-detail.html?id=prompt-engineering-praktis">
+              <div class="row g-0 align-items-center">
+                <div class="col-4"><img src="assets/img/cover-prompt.svg" class="img-fluid h-100 object-fit-cover" alt="" loading="lazy" /></div>
+                <div class="col-8"><div class="card-body p-3">
+                  <span class="small" style="color: var(--brand-cyan)">Generative AI</span>
+                  <h3 class="h6 mb-0 text-body">Prompt Engineering: 5 Teknik Praktis agar Jawaban LLM Lebih Akurat</h3>
+                </div></div>
+              </div>
+            </a>
+            <a class="card card-blog text-decoration-none mb-3 overflow-hidden" href="blog-detail.html?id=etika-ai-bisnis">
+              <div class="row g-0 align-items-center">
+                <div class="col-4"><img src="assets/img/cover-etika.svg" class="img-fluid h-100 object-fit-cover" alt="" loading="lazy" /></div>
+                <div class="col-8"><div class="card-body p-3">
+                  <span class="small" style="color: var(--brand-cyan)">Etika AI</span>
+                  <h3 class="h6 mb-0 text-body">Etika AI: Bias, Privasi, dan Tanggung Jawab dalam Produk Berbasis Model</h3>
+                </div></div>
+              </div>
+            </a>
+            <a class="card card-blog text-decoration-none mb-3 overflow-hidden" href="blog-detail.html?id=computer-vision-pabrik">
+              <div class="row g-0 align-items-center">
+                <div class="col-4"><img src="assets/img/cover-vision.svg" class="img-fluid h-100 object-fit-cover" alt="" loading="lazy" /></div>
+                <div class="col-8"><div class="card-body p-3">
+                  <span class="small" style="color: var(--brand-cyan)">Computer Vision</span>
+                  <h3 class="h6 mb-0 text-body">Computer Vision di Pabrik: Deteksi Cacat Produk secara Real-Time</h3>
+                </div></div>
+              </div>
+            </a>
+            </div>
+
+            <div class="card p-4 mt-4 text-center">
+              <i class="bi bi-lightbulb fs-2" style="color: var(--brand-cyan)"></i>
+              <h3 class="h5 mt-2">Butuh solusi AI untuk bisnis Anda?</h3>
+              <p class="text-secondary small">Konsultasikan kebutuhan Anda dengan tim NovaMind AI.</p>
+              <a href="index.html#kontak" class="btn btn-brand">Konsultasi Gratis</a>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <a href="blog.html" class="btn btn-outline-secondary mt-5"><i class="bi bi-arrow-left me-1"></i>Kembali ke daftar blog</a>
+    </main>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer class="border-top mt-5 py-4" style="background: rgba(13, 20, 48, 0.6)">
+      <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+        <a class="d-inline-flex align-items-center gap-2 text-decoration-none fw-bold fs-5" href="index.html">
+          <img src="assets/img/logo.svg" alt="" width="32" height="32" />
+          <span class="brand-name">NovaMind<span class="brand-ai">AI</span></span>
+        </a>
+        <ul class="nav justify-content-center">
+          <li class="nav-item"><a class="nav-link text-secondary" href="index.html">Beranda</a></li>
+          <li class="nav-item"><a class="nav-link text-secondary" href="blog.html">Blog</a></li>
+          <li class="nav-item"><a class="nav-link text-secondary" href="cv.html">CV</a></li>
+          <li class="nav-item"><a class="nav-link text-secondary" href="index.html#kontak">Kontak</a></li>
+        </ul>
+      </div>
+      <p class="container text-secondary small text-center mt-3 mb-0">© 2026 NovaMind AI. Proyek simulasi praktikum PABWE — IT Del.</p>
+    </footer>
+
+    <!-- Bootstrap JS bundle (untuk navbar collapse) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+    <script>
+      // ============ DATA ARTIKEL (konten dibuat sendiri, bertema AI) ============
+      const ARTICLES = {
+  "rag-untuk-bisnis": {
+    "id": "rag-untuk-bisnis",
+    "cat": "Generative AI",
+    "cover": "cover-rag.svg",
+    "title": "RAG: Membuat Chatbot yang Menjawab dari Dokumen Perusahaan Anda",
+    "author": "Rina Siregar",
+    "iso": "2026-09-15",
+    "date": "15 Sep 2026",
+    "read": 7,
+    "p": [
+      "Model bahasa besar (LLM) dilatih pada data umum sehingga tidak mengenal kebijakan internal, harga terbaru, atau prosedur operasional perusahaan Anda. Ketika ditanya hal-hal tersebut, model tetap berusaha menjawab dan sering kali menghasilkan jawaban yang terdengar meyakinkan tetapi salah — fenomena yang dikenal sebagai halusinasi.",
+      "Retrieval-Augmented Generation (RAG) menyelesaikan masalah ini dengan menambahkan langkah pencarian sebelum model menjawab. Dokumen dipecah menjadi potongan kecil (chunk), diubah menjadi vektor embedding, lalu disimpan dalam basis data vektor. Saat pengguna bertanya, sistem mengambil potongan paling relevan dan menyertakannya sebagai konteks dalam prompt.",
+      "Hasilnya, jawaban lebih akurat, dapat dilacak ke sumbernya, dan mudah diperbarui: cukup menambah atau mengganti dokumen tanpa melatih ulang model. Kualitas RAG sangat bergantung pada cara memecah dokumen, pemilihan model embedding, serta evaluasi berkala terhadap pertanyaan nyata dari pengguna."
+    ],
+    "quote": "Model tidak perlu tahu segalanya; ia hanya perlu tahu di mana mencari.",
+    "qsrc": "Prinsip dasar desain sistem RAG",
+    "tips": [
+      "Pecah dokumen berdasarkan struktur (judul, bagian), bukan sekadar jumlah karakter.",
+      "Selalu tampilkan sumber kutipan agar pengguna dapat memverifikasi jawaban.",
+      "Siapkan 50–100 pertanyaan uji untuk mengukur akurasi sebelum rilis.",
+      "Tambahkan fallback: jika konteks tidak ditemukan, chatbot harus mengaku tidak tahu."
+    ],
+    "alert": "Data sensitif: pastikan dokumen yang diindeks sudah melalui kontrol akses agar pengguna hanya melihat konten yang memang boleh mereka akses."
+  },
+  "prompt-engineering-praktis": {
+    "id": "prompt-engineering-praktis",
+    "cat": "Generative AI",
+    "cover": "cover-prompt.svg",
+    "title": "Prompt Engineering: 5 Teknik Praktis agar Jawaban LLM Lebih Akurat",
+    "author": "Andi Pratama",
+    "iso": "2026-09-08",
+    "date": "8 Sep 2026",
+    "read": 6,
+    "p": [
+      "Prompt engineering adalah seni menyusun instruksi agar model bahasa memahami tugas, konteks, dan format keluaran yang Anda harapkan. Instruksi yang samar menghasilkan jawaban yang samar; instruksi yang spesifik hampir selalu menghasilkan jawaban yang lebih berguna.",
+      "Kerangka sederhana yang efektif terdiri dari peran, tugas, konteks, batasan, dan format keluaran. Misalnya, alih-alih meminta “Buat ringkasan”, tulis “Sebagai analis bisnis, ringkas laporan ini menjadi lima poin untuk direksi, maksimal 100 kata, dalam bahasa Indonesia formal”.",
+      "Teknik lanjutan seperti few-shot prompting (memberi contoh pasangan input–output) dan chain-of-thought (meminta penalaran bertahap) terbukti meningkatkan akurasi pada tugas yang rumit. Namun, prompt yang baik tetap perlu diuji dan diiterasi seperti kode program."
+    ],
+    "quote": "Prompt yang baik adalah spesifikasi: jelas, terukur, dan dapat diuji.",
+    "qsrc": "Catatan tim NovaMind AI",
+    "tips": [
+      "Berikan peran dan tujuan yang jelas di awal prompt.",
+      "Sertakan 2–3 contoh keluaran ideal (few-shot).",
+      "Tentukan format keluaran, misalnya tabel atau JSON.",
+      "Simpan versi prompt dan uji dengan kasus yang sama setiap kali diubah."
+    ],
+    "alert": "Jangan menempelkan data pribadi atau rahasia perusahaan ke layanan AI publik tanpa kebijakan penggunaan yang jelas."
+  },
+  "etika-ai-bisnis": {
+    "id": "etika-ai-bisnis",
+    "cat": "Etika AI",
+    "cover": "cover-etika.svg",
+    "title": "Etika AI: Bias, Privasi, dan Tanggung Jawab dalam Produk Berbasis Model",
+    "author": "Maya Sari",
+    "iso": "2026-09-01",
+    "date": "1 Sep 2026",
+    "read": 8,
+    "p": [
+      "Sistem AI belajar dari data, dan data mencerminkan dunia nyata beserta ketimpangannya. Tanpa pemeriksaan, model dapat memperkuat bias terhadap kelompok tertentu, misalnya dalam penilaian kredit, penyaringan lamaran kerja, atau rekomendasi layanan.",
+      "Selain bias, ada isu privasi dan transparansi. Perusahaan perlu tahu data apa yang dikumpulkan, untuk tujuan apa, dan berapa lama disimpan. Di Indonesia, pemrosesan data pribadi diatur dalam Undang-Undang Pelindungan Data Pribadi (UU PDP), sehingga kepatuhan hukum harus dirancang sejak awal.",
+      "Praktik yang baik mencakup dokumentasi data dan model, pengujian keadilan lintas kelompok, penjelasan keputusan yang dapat dipahami manusia, serta jalur banding bila pengguna merasa dirugikan oleh keputusan otomatis."
+    ],
+    "quote": "Kecanggihan teknologi tidak menggantikan tanggung jawab manusia atas keputusan yang diambilnya.",
+    "qsrc": "Prinsip tata kelola AI",
+    "tips": [
+      "Audit dataset: siapa yang terwakili dan siapa yang tidak?",
+      "Uji performa model per kelompok pengguna, bukan hanya rata-rata.",
+      "Libatkan manusia (human-in-the-loop) untuk keputusan berdampak tinggi.",
+      "Sediakan penjelasan singkat mengapa model memberi suatu hasil."
+    ],
+    "alert": "Keputusan berdampak tinggi (kredit, kesehatan, pekerjaan) sebaiknya tidak sepenuhnya diotomasi tanpa tinjauan manusia."
+  },
+  "computer-vision-pabrik": {
+    "id": "computer-vision-pabrik",
+    "cat": "Computer Vision",
+    "cover": "cover-vision.svg",
+    "title": "Computer Vision di Pabrik: Deteksi Cacat Produk secara Real-Time",
+    "author": "Budi Hutapea",
+    "iso": "2026-08-24",
+    "date": "24 Agu 2026",
+    "read": 6,
+    "p": [
+      "Inspeksi visual manual rentan terhadap kelelahan dan inkonsistensi, terutama pada lini produksi berkecepatan tinggi. Computer vision memungkinkan kamera dan model mendeteksi goresan, retak, salah warna, atau komponen yang hilang dalam hitungan milidetik.",
+      "Alur umum dimulai dari pengumpulan gambar produk baik dan cacat, pelabelan, pelatihan model deteksi objek atau segmentasi, lalu penerapan pada perangkat edge di dekat lini produksi. Pencahayaan yang konsisten dan posisi kamera yang tepat sering kali lebih menentukan daripada arsitektur model itu sendiri.",
+      "Setelah berjalan, model harus dipantau: perubahan material, pencahayaan, atau desain produk dapat menurunkan akurasi. Menyimpan gambar yang salah diprediksi untuk dilatih ulang membuat sistem semakin baik dari waktu ke waktu."
+    ],
+    "quote": "Data yang konsisten mengalahkan model yang rumit.",
+    "qsrc": "Pelajaran dari proyek inspeksi kualitas",
+    "tips": [
+      "Standarkan pencahayaan dan sudut kamera sebelum mengumpulkan data.",
+      "Kumpulkan contoh cacat yang langka secara sengaja (augmentasi atau simulasi).",
+      "Mulai dari satu jenis cacat paling mahal, lalu perluas bertahap.",
+      "Ukur precision dan recall; false negative biasanya lebih merugikan."
+    ],
+    "alert": "Jika kamera merekam pekerja, pastikan ada kebijakan privasi dan persetujuan sesuai regulasi ketenagakerjaan dan perlindungan data."
+  },
+  "mlops-untuk-pemula": {
+    "id": "mlops-untuk-pemula",
+    "cat": "MLOps",
+    "cover": "cover-mlops.svg",
+    "title": "MLOps untuk Pemula: Dari Notebook ke Model yang Berjalan di Produksi",
+    "author": "Dewi Lestari",
+    "iso": "2026-08-15",
+    "date": "15 Agu 2026",
+    "read": 9,
+    "p": [
+      "Banyak proyek AI berhenti di notebook: modelnya akurat di laptop, tetapi tidak pernah melayani pengguna. MLOps adalah kumpulan praktik yang menjembatani kesenjangan itu dengan menggabungkan rekayasa perangkat lunak, DevOps, dan siklus hidup machine learning.",
+      "Komponen intinya meliputi versioning data dan kode, pipeline pelatihan yang dapat diulang, registri model, pengujian otomatis, penerapan bertahap (canary), serta monitoring performa dan drift data setelah model dirilis.",
+      "Anda tidak perlu langsung memakai platform besar. Mulailah dari hal sederhana: satu repositori, konfigurasi eksperimen yang tercatat, CI yang menjalankan tes, dan API yang dibungkus dalam container. Otomatisasi dapat ditambah seiring kebutuhan tim tumbuh."
+    ],
+    "quote": "Model yang tidak dimonitor sedang menua tanpa Anda sadari.",
+    "qsrc": "Prinsip operasional machine learning",
+    "tips": [
+      "Catat versi data, kode, dan parameter untuk setiap eksperimen.",
+      "Bungkus model dalam container agar lingkungan produksi identik.",
+      "Pantau drift data dan metrik bisnis, bukan hanya akurasi.",
+      "Siapkan rencana rollback ke versi model sebelumnya."
+    ],
+    "alert": "Tetapkan pemilik (owner) untuk setiap model di produksi agar ada pihak yang bertanggung jawab saat performa menurun."
+  },
+  "agen-ai-otomasi-proses": {
+    "id": "agen-ai-otomasi-proses",
+    "cat": "Otomasi",
+    "cover": "cover-otomasi.svg",
+    "title": "Agen AI dan Otomasi Proses: Kapan Layak Diterapkan?",
+    "author": "Farhan Nasution",
+    "iso": "2026-08-05",
+    "date": "5 Agu 2026",
+    "read": 5,
+    "p": [
+      "Agen AI adalah sistem yang tidak hanya menjawab, tetapi juga merencanakan langkah dan memanggil alat — misalnya membaca email, mengisi formulir, atau memperbarui data di sistem internal — untuk menyelesaikan suatu tujuan. Potensinya besar, tetapi tidak semua proses cocok diotomasi.",
+      "Proses yang ideal biasanya berulang, bervolume tinggi, berbasis aturan yang cukup jelas, dan berdampak rendah bila terjadi kesalahan atau mudah dikoreksi. Contohnya pemilahan tiket dukungan, ekstraksi data dari faktur, dan pembuatan draf laporan mingguan.",
+      "Mulailah dengan pendekatan human-in-the-loop: agen menyusun draf, manusia menyetujui. Setelah tingkat kesalahan terbukti rendah dan terukur, otonomi agen dapat ditingkatkan secara bertahap disertai log audit yang lengkap."
+    ],
+    "quote": "Otomasi terbaik adalah yang membebaskan waktu manusia untuk pekerjaan yang membutuhkan penilaian.",
+    "qsrc": "Catatan konsultasi NovaMind AI",
+    "tips": [
+      "Petakan proses dan hitung waktu yang dihabiskan sebelum memilih use case.",
+      "Batasi izin agen: beri akses minimum yang diperlukan.",
+      "Catat setiap tindakan agen dalam log yang dapat diaudit.",
+      "Ukur hasil: waktu yang dihemat, tingkat kesalahan, dan kepuasan pengguna."
+    ],
+    "alert": "Batasi akses agen ke sistem produksi dan sediakan tombol berhenti (kill switch) untuk situasi darurat."
+  }
+};
+      const ORDER = ["rag-untuk-bisnis", "prompt-engineering-praktis", "etika-ai-bisnis", "computer-vision-pabrik", "mlops-untuk-pemula", "agen-ai-otomasi-proses"];
+      const CAT_ICON = {"Generative AI": "bi-stars", "Etika AI": "bi-shield-check", "Computer Vision": "bi-eye", "MLOps": "bi-diagram-3", "Otomasi": "bi-gear"};
+      const DEFAULT_ID = "rag-untuk-bisnis";
+
+      // Escape HTML agar aman ketika disisipkan ke innerHTML
+      const esc = (s) =>
+        String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+
+      function articleHTML(a) {
+        const tips = a.tips
+          .map((t) => `<li class="list-group-item bg-transparent border-secondary-subtle px-0"><i class="bi bi-check-circle-fill text-info me-2"></i>${esc(t)}</li>`)
+          .join("");
+        return `
+          <img id="art-cover" class="cover-img rounded-4 border mb-4" src="assets/img/${esc(a.cover)}" alt="Cover artikel: ${esc(a.title)}" width="1200" height="630" />
+          <span id="art-cat" class="badge badge-ai rounded-pill mb-3"><i class="bi ${CAT_ICON[a.cat]} me-1"></i>${esc(a.cat)}</span>
+          <h1 id="art-title" class="display-6 fw-bold mb-3">${esc(a.title)}</h1>
+          <ul class="list-inline text-secondary small mb-4">
+            <li class="list-inline-item me-3"><i class="bi bi-person me-1"></i>${esc(a.author)}</li>
+            <li class="list-inline-item me-3"><i class="bi bi-calendar me-1"></i><time datetime="${esc(a.iso)}">${esc(a.date)}</time></li>
+            <li class="list-inline-item me-3"><i class="bi bi-clock me-1"></i>${a.read} menit baca</li>
+            <li class="list-inline-item"><i class="bi ${CAT_ICON[a.cat]} me-1"></i>${esc(a.cat)}</li>
+          </ul>
+          <div class="article-body">
+            <p>${esc(a.p[0])}</p>
+            <p>${esc(a.p[1])}</p>
+            <blockquote class="blockquote my-4">
+              <p class="mb-2">“${esc(a.quote)}”</p>
+              <footer class="blockquote-footer">${esc(a.qsrc)}</footer>
+            </blockquote>
+            <p>${esc(a.p[2])}</p>
+            <h2 class="h4 mt-5">Poin penting</h2>
+            <ul class="list-group list-group-flush my-3">${tips}</ul>
+            <div class="alert alert-info d-flex gap-2 align-items-start mt-4" role="alert">
+              <i class="bi bi-info-circle-fill mt-1"></i>
+              <div>${esc(a.alert)}</div>
+            </div>
+          </div>`;
+      }
+
+      function relatedHTML(a) {
+        const i = ORDER.indexOf(a.id);
+        return [1, 2, 3]
+          .map((k) => ARTICLES[ORDER[(i + k) % ORDER.length]])
+          .map((r) => `
+            <a class="card card-blog text-decoration-none mb-3 overflow-hidden" href="blog-detail.html?id=${encodeURIComponent(r.id)}">
+              <div class="row g-0 align-items-center">
+                <div class="col-4"><img src="assets/img/${esc(r.cover)}" class="img-fluid h-100 object-fit-cover" alt="" loading="lazy" /></div>
+                <div class="col-8"><div class="card-body p-3">
+                  <span class="small" style="color: var(--brand-cyan)">${esc(r.cat)}</span>
+                  <h3 class="h6 mb-0 text-body">${esc(r.title)}</h3>
+                </div></div>
+              </div>
+            </a>`)
+          .join("");
+      }
+
+      // ============ Pilih artikel dari query string: blog-detail.html?id=... ============
+      const requested = new URLSearchParams(location.search).get("id");
+      // hasOwnProperty: hanya id yang terdaftar yang diterima (input URL tidak dipercaya)
+      const id = Object.prototype.hasOwnProperty.call(ARTICLES, requested) ? requested : DEFAULT_ID;
+      const current = ARTICLES[id];
+
+      document.getElementById("article").innerHTML = articleHTML(current);
+      document.getElementById("related").innerHTML = relatedHTML(current);
+      document.getElementById("crumb-title").textContent = current.title;
+      document.title = `${current.title} — Blog NovaMind AI`;
+
+      // ============ Komentar: validasi Bootstrap + tambah komentar (hanya di memori) ============
+      const form = document.getElementById("comment-form");
+      const list = document.getElementById("comment-list");
+      const count = document.getElementById("comment-count");
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        if (!form.checkValidity()) {
+          form.classList.add("was-validated");
+          return;
+        }
+        // Bangun elemen dengan textContent (bukan innerHTML) agar input pengguna tidak menjadi HTML/XSS
+        const li = document.createElement("li");
+        li.className = "d-flex gap-3";
+        const icon = document.createElement("i");
+        icon.className = "bi bi-person-circle fs-2 text-secondary";
+        const box = document.createElement("div");
+        const name = document.createElement("strong");
+        name.textContent = document.getElementById("c-name").value.trim();
+        const time = document.createElement("small");
+        time.className = "text-secondary ms-2";
+        time.textContent = "Baru saja";
+        const text = document.createElement("p");
+        text.className = "mb-0 text-secondary text-break";
+        text.textContent = document.getElementById("c-text").value.trim();
+        box.append(name, time, text);
+        li.append(icon, box);
+        list.append(li);
+
+        count.textContent = String(list.children.length);
+        form.reset();
+        form.classList.remove("was-validated");
+      });
+    </script>
+  </body>
+</html>

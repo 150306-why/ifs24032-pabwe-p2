@@ -4,38 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CV — Wahyu Nainggolan | NovaMind AI</title>
+    <link rel="canonical" href="https://ifs24032-p2.netlify.app/cv" />
     <meta name="description" content="Curriculum Vitae digital Wahyu Nainggolan, mahasiswa S-1 Informatika IT Del dan aspiring full-stack developer." />
     <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml" />
 
     <!-- Google Fonts (sama dengan halaman lain) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap"
-      rel="stylesheet"
-    />
+    <!-- Font dimuat async (pola media=print → swap) agar tidak memblokir render pertama;
+         fallback <noscript> tetap memuatnya secara normal bila JS/CSS-swap tidak berjalan. -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" /></noscript>
 
-    <!-- Tailwind CSS 4 — Play CDN (dipin ke versi tertentu + SRI; cukup untuk praktikum) -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.3/dist/index.global.js"
-      integrity="sha384-2ql948lIdLcGEE0/qxNiudyTjgauA3RDJERu5xW75kFCvSl5a9odyQYCb6tEjnmB"
-      crossorigin="anonymous"
-    ></script>
-
-    <!-- @theme (fitur Tailwind v4): token brand yang sama dengan landing page & blog -->
-    <style type="text/tailwindcss">
-      @theme {
-        --color-ink-950: #070b1a;
-        --color-ink-900: #0d1430;
-        --color-ink-800: #121b40;
-        --color-ink-100: #e6ecff;
-        --color-ink-400: #9aa8cf;
-        --color-brand-cyan: #22d3ee;
-        --color-brand-violet: #8b5cf6;
-        --font-display: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
-        --font-sans: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
-      }
-    </style>
+    <!-- Tailwind CSS 4 — dikompilasi & di-purge saat build (bukan Play CDN),
+         jadi tidak ada JIT compiler yang berjalan di browser. -->
+    <link rel="stylesheet" href="assets/css/tailwind.min.css" integrity="sha384-i7fC+sQpCC73SlzgTbR1yYz6g1Ee6ReYeBE4fqhDcnreZdOsbnjVGx5suFHWJMIP" />
   </head>
 
   <body class="bg-ink-950 font-sans text-ink-100 antialiased selection:bg-brand-cyan/30">

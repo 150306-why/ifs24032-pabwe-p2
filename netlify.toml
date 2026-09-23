@@ -1,0 +1,55 @@
+# netlify.toml
+# ---------------------------------------------------------------------------
+# Kenapa file ini penting:
+# Netlify punya fitur "Pretty URLs" yang otomatis meng-redirect /index(.html)
+# ke "/" (301). Alat audit praktikum ini secara eksplisit meminta path
+# "/index" mengembalikan 200 tanpa redirect — jadi kita "menang balapan"
+# dengan mendaftarkan rewrite eksplisit (status 200, bukan redirect) untuk
+# keempat halaman sebelum aturan otomatis Netlify sempat jalan.
+# ---------------------------------------------------------------------------
+
+[build]
+  publish = "."
+
+# Rewrite (200 = konten disajikan langsung, TANPA redirect / tanpa ganti URL
+# di address bar) untuk path tanpa ekstensi yang dipakai alat audit.
+[[redirects]]
+  from = "/index"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/blog"
+  to = "/blog.html"
+  status = 200
+
+[[redirects]]
+  from = "/blog-detail"
+  to = "/blog-detail.html"
+  status = 200
+
+[[redirects]]
+  from = "/cv"
+  to = "/cv.html"
+  status = 200
+
+# Header keamanan dasar untuk semua halaman (membantu audit Best Practices).
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), camera=(), microphone=()"
+
+# Aset statis (CSS/JS/font/gambar) di-hash lewat nama file bila berubah,
+# jadi aman diberi cache jangka panjang + immutable.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"

@@ -1,0 +1,7 @@
+# Jaring pengaman tambahan selain netlify.toml (Netlify membaca _redirects
+# maupun netlify.toml). Rewrite 200 = konten disajikan langsung tanpa
+# redirect, supaya /index tidak lagi dialihkan otomatis ke "/".
+/index          /index.html          200
+/blog           /blog.html           200
+/blog-detail    /blog-detail.html    200
+/cv             /cv.html             200

@@ -3,9 +3,13 @@
 # Kenapa file ini penting:
 # Netlify punya fitur "Pretty URLs" yang otomatis meng-redirect /index(.html)
 # ke "/" (301). Alat audit praktikum ini secara eksplisit meminta path
-# "/index" mengembalikan 200 tanpa redirect — jadi kita "menang balapan"
-# dengan mendaftarkan rewrite eksplisit (status 200, bukan redirect) untuk
-# keempat halaman sebelum aturan otomatis Netlify sempat jalan.
+# "/index" mengembalikan 200 tanpa redirect.
+#
+# CATATAN PENTING: Netlify TIDAK menjalankan sebuah redirect rule kalau path
+# itu sudah "match" ke aset yang ada (disebut "shadowing") — dan /index
+# dianggap match karena Pretty URLs. Makanya wajib pakai force = true, kalau
+# tidak, rule di bawah ini akan DILEWATI dan Netlify tetap redirect ke "/".
+# (Sumber: https://docs.netlify.com/manage/routing/redirects/redirect-options/#shadowing)
 # ---------------------------------------------------------------------------
 
 [build]
@@ -13,25 +17,30 @@
 
 # Rewrite (200 = konten disajikan langsung, TANPA redirect / tanpa ganti URL
 # di address bar) untuk path tanpa ekstensi yang dipakai alat audit.
+# force = true WAJIB ada, lihat catatan di atas.
 [[redirects]]
   from = "/index"
   to = "/index.html"
   status = 200
+  force = true
 
 [[redirects]]
   from = "/blog"
   to = "/blog.html"
   status = 200
+  force = true
 
 [[redirects]]
   from = "/blog-detail"
   to = "/blog-detail.html"
   status = 200
+  force = true
 
 [[redirects]]
   from = "/cv"
   to = "/cv.html"
   status = 200
+  force = true
 
 # Header keamanan dasar untuk semua halaman (membantu audit Best Practices).
 [[headers]]
